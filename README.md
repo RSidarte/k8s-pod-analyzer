@@ -10,6 +10,8 @@ A small Python tool that analyzes Kubernetes pod status and generates a health r
 - Detects unstable pods (more than 5 restarts)
 - Handles missing files and edge cases (empty cluster, missing container statuses)
 
+Requires Python 3.10+
+
 ## Usage
 
 ```bash
