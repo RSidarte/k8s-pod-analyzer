@@ -1,0 +1,6 @@
+NAME       READY   STATUS             RESTARTS   AGE
+api-1      1/1     Running            0          2d
+api-2      0/1     CrashLoopBackOff   12         2d
+db-1       1/1     Running            1          5d
+worker-1   0/1     Pending            0          1h
+worker-2   1/1     Running            7          3d

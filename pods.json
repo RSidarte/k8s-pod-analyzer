@@ -1,0 +1,20 @@
+{
+  "items": [
+    {
+      "metadata": {"name": "api-1", "namespace": "prod"},
+      "status": {"phase": "Running", "containerStatuses": [{"restartCount": 0}]}
+    },
+    {
+      "metadata": {"name": "api-2", "namespace": "prod"},
+      "status": {"phase": "Running", "containerStatuses": [{"restartCount": 12}]}
+    },
+    {
+      "metadata": {"name": "worker-1", "namespace": "batch"},
+      "status": {"phase": "Pending", "containerStatuses": [{"restartCount": 0}]}
+    },
+    {
+      "metadata": {"name": "worker-2", "namespace": "batch"},
+      "status": {"phase": "Running", "containerStatuses": [{"restartCount": 7}]}
+    }
+  ]
+}
