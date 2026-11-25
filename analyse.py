@@ -1,6 +1,8 @@
 import sys
 import json
 
+from outils import compter_par
+
 
 def parser(sortie):
     lignes = sortie.splitlines()
@@ -34,17 +36,6 @@ def parser_json(datas):
             }
         )
     return pods
-
-
-def compter_par(pods, cle):
-    compteur = {}
-    for pod in pods:
-        valeur = pod[cle]
-        if valeur in compteur:
-            compteur[valeur] += 1
-        else:
-            compteur[valeur] = 1
-    return compteur
 
 
 def pods_en_erreur(pods):
