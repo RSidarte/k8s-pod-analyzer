@@ -13,6 +13,7 @@ A small Python tool that analyzes Kubernetes pod status and generates a health r
 ## Requirements
  
 Requires Python 3.10+
+pip install -r requirements.txt 
 
 ## Usage
 
