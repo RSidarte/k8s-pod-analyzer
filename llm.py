@@ -18,9 +18,13 @@ def construire_description(pods):
     noms_a_verifier = pods_en_erreur(pods) + pods_instables(pods)
     for pod in pods:
         if pod["nom"] in noms_a_verifier:
-            lignes.append(
-                f"{pod['nom']} : statut {pod['statut']}, restarts: {pod['restarts']}, namespace: {pod['namespace']}"
+            ligne = (
+                f"{pod['nom']} : statut {pod['statut']}, "
+                f"restarts: {pod['restarts']}, namespace: {pod['namespace']}"
             )
+            if pod["derniere_erreur"]:
+                ligne += f", dernière erreur: {pod['derniere_erreur']}, code sortie: {pod['code_sortie']}"
+            lignes.append(ligne)
     return "\n".join(lignes)
 
 
@@ -30,7 +34,7 @@ def diagnostiquer(pods):
         return "✅ Aucun pod à diagnostiquer"
     message = client.messages.create(
         model="claude-haiku-5-5",
-        max_tokens=300,
+        max_tokens=2000,
         system=SYSTEME,
         messages=[
             {"role": "user", "content": f"Voici les pods à problème :\n{description}"}
@@ -50,4 +54,5 @@ if __name__ == "__main__":
         datas = json.load(fichier)
 
     pods = parser_json(datas)
+    ##print(construire_description(pods))
     print(diagnostiquer(pods))

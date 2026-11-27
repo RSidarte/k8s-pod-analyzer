@@ -27,12 +27,19 @@ def parser_json(datas):
     for pod in datas["items"]:
         statuses = pod["status"].get("containerStatuses", [])
         restarts = statuses[0]["restartCount"] if statuses else 0
+        premier = statuses[0] if statuses else {}
+        etat = premier.get("lastState", {})
+        termine = etat.get("terminated", {})
+        derniere_erreur = termine.get("reason")
+        code_sortie = termine.get("exitCode")
         pods.append(
             {
                 "nom": pod["metadata"]["name"],
                 "statut": pod["status"]["phase"],
                 "restarts": restarts,
                 "namespace": pod["metadata"]["namespace"],
+                "derniere_erreur": derniere_erreur,
+                "code_sortie": code_sortie,
             }
         )
     return pods

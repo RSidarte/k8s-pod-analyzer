@@ -6,15 +6,31 @@
     },
     {
       "metadata": {"name": "api-2", "namespace": "prod"},
-      "status": {"phase": "Running", "containerStatuses": [{"restartCount": 12}]}
+      "status": {
+        "phase": "Running",
+        "containerStatuses": [
+          {
+            "restartCount": 12,
+            "lastState": {"terminated": {"reason": "OOMKilled", "exitCode": 137}}
+          }
+        ]
+      }
     },
     {
       "metadata": {"name": "worker-1", "namespace": "batch"},
-      "status": {"phase": "Pending", "containerStatuses": [{"restartCount": 0}]}
+      "status": {"phase": "Pending"}
     },
     {
       "metadata": {"name": "worker-2", "namespace": "batch"},
-      "status": {"phase": "Running", "containerStatuses": [{"restartCount": 7}]}
+      "status": {
+        "phase": "Running",
+        "containerStatuses": [
+          {
+            "restartCount": 7,
+            "lastState": {"terminated": {"reason": "Error", "exitCode": 1}}
+          }
+        ]
+      }
     }
   ]
 }
