@@ -79,13 +79,15 @@ def rapport(pods):
     else:
         print(f"Pods instables (> 5 restarts) : {', '.join(instables)}")
 
+if __name__ == "__main__":
+    try:
+        with open("pods.json") as fichier:
+            datas = json.load(fichier)
+    except FileNotFoundError:
+        print("❌ Fichier introuvable : pods.json")
+        sys.exit(1)
 
-try:
-    with open("pods.json") as fichier:
-        datas = json.load(fichier)
-except FileNotFoundError:
-    print("❌ Fichier introuvable : pods.json")
-    sys.exit(1)
 
-pods = parser_json(datas)
-rapport(pods)
+
+    pods = parser_json(datas)
+    rapport(pods)
