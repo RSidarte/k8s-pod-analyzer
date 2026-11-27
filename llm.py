@@ -1,7 +1,7 @@
-import json
+import json, sys, anthropic, subprocess
 from analyse import parser_json, pods_en_erreur, pods_instables
 from dotenv import load_dotenv
-import anthropic
+
 
 load_dotenv()
 client = anthropic.Anthropic()
@@ -11,6 +11,18 @@ SYSTEME = (
     "Pour chaque pod, donne la cause probable et les commandes kubectl à lancer. "
     "Sois concis."
 )
+
+
+def recuperer_pods(namespace):
+    resultat = subprocess.run(
+        ["kubectl", "get", "pods", "-n", namespace, "-o", "json"],
+        capture_output=True,
+        text=True,
+    )
+    if resultat.returncode != 0:
+        print(f"❌ Erreur kubectl : {resultat.stderr}")
+        return None
+    return json.loads(resultat.stdout)
 
 
 def construire_description(pods):
@@ -50,9 +62,9 @@ def diagnostiquer(pods):
 
 
 if __name__ == "__main__":
-    with open("pods.json") as fichier:
-        datas = json.load(fichier)
-
+    datas = recuperer_pods("demo")
+    if datas is None:
+        sys.exit(1)
     pods = parser_json(datas)
-    ##print(construire_description(pods))
     print(diagnostiquer(pods))
+   
